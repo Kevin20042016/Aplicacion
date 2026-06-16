@@ -12,7 +12,14 @@ public class Usuario {
     private String problemasSalud;
 
     public Usuario(String nombre, String apellidos, int edad, Genero genero, double alturaCm, double pesoKg, Objetivo objetivo, NivelActividad nivelActividad, String problemasSalud) {
+        if(!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")){
+            throw new IllegalArgumentException("Error: Nombre en formato no válido");
+        }
         this.nombre = nombre;
+
+        if(!apellidos.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")){
+            throw new IllegalArgumentException("Error: Apellidos en formato no válido");
+        }
         this.apellidos = apellidos;
         this.edad = edad;
         this.genero = genero;
