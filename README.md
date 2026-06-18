@@ -11,3 +11,11 @@ Aplicación personal para la gestión de calorías, macronutrientes y monitoriza
 * [ ] **Historia 2:** Como usuario, quiero definir un objetivo físico (ej. Bajar de peso) para que el sistema ajuste mis necesidades calóricas diarias.
 * [ ] **Historia 3:** Como sistema, necesito un catálogo de alimentos abstractos que calculen sus macronutrientes exactos ya sea por peso (gramos) o por unidad.
 * [ ] **Historia 4:** Como usuario, quiero registrar los alimentos que consumo en el día para saber si he cumplido mis objetivos nutricionales.
+
+
+## 🧠 Reglas de Negocio (Cálculo de objetivos)
+Para ajustar las calorías del usuario según sus metas, la aplicación aplica las siguientes reglas basadas en la nutrición deportiva:
+* **Déficit Calórcio ('BAJAR_PESO'):** Se restan 500 Kcal al metabolismo basal para una pérdida de peso segura y progresiva.
+* **Superávit Calórico ('AUMENTAR_MASA'):** Se suman 500 Kcal para promover la ganancia de masa muscular.
+* **Mantenimiento ('MANTENER'):** Las calorías se mantienen igual a las de mantenimiento.
+* **Optimización ('MEJORAR_RENDIMIENTO'):** Se añaden un ligero superávit de 250 Kcal para aportar energía extra sin comprometer la composición corporal.

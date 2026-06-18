@@ -104,4 +104,23 @@ public class Usuario {
         }
         return caloriasMantenimiento;
     }
+
+    /**
+     * Calcula las calorías finales del usuario aplicando déficit o superávit
+     * según el objetivo físico configurado
+     * @return double Calorías totales diarias recomendadas.
+     */
+    public double calcularCaloriasObjetivo(){
+        //1. Obtenemos las calorías base llamando al método que hicimos en la Historia 1
+        double caloriasBase = this.calcularCaloriasMantenimiento();
+
+        //2. Retornamosm directamente las calorías objetivo
+        return switch (this.objetivo) {
+            case BAJAR_PESO -> caloriasBase - 500.0;
+            case AUMENTAR_PESO -> caloriasBase + 500;
+            case MANTENER -> caloriasBase;
+            case MEJORAR_RENDIMIENTO -> caloriasBase + 250;
+            default -> throw new IllegalArgumentException("Objetivo no válido");
+        };
+    }
 }
