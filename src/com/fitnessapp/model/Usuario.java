@@ -79,7 +79,7 @@ public class Usuario {
             metabolismoBasal = (10 * this.pesoKg) + (6.25 * this.alturaCm) - (5 * this.edad) - 161;
         }
         else {
-            throw new IllegalArgumentException("Error de cálculo: El género debe ser 'M' (Masculino) o 'F' (Femenino). Valor recibido: " + this.genero);
+            throw new IllegalArgumentException("Error de cálculo: El género debe ser (Masculino) o (Femenino).");
         }
 
         //Paso 2: Aplicar el multiplicador
