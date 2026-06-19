@@ -32,7 +32,7 @@ public class Main {
 
             // 5. Calculamos resultados
             double caloriasConsumidas = registroHoy.calcularCaloriasConsumidas();
-            System.out.println("🍽️ Calorías consumidas hoy: " + caloriasConsumidas + " kcal");
+            System.out.println("🍽️ Calorías consumidas hoy: " + String.format("%.2f", caloriasConsumidas) + " kcal");
 
             // 6. Verificamos si cumplió el objetivo
             if (registroHoy.cumpleObjetivo()) {
@@ -41,10 +41,10 @@ public class Main {
                 System.out.println("❌ No has cumplido el objetivo calórico hoy. ¡Mañana más y mejor!");
             }
 
-            /* * PRUEBA DE ERRORES (Descomenta estas líneas para probar el Catch)
-             * System.out.println("\n--- Probando manejo de errores ---");
-             * Usuario usuarioInvalido = new Usuario("Kevin123", "Perez", 25, Genero.MASCULINO, 170, 70, Objetivo.MANTENER, NivelActividad.SEDENTARIO);
-             */
+            // PRUEBA DE ERRORES
+             System.out.println("\n--- Probando manejo de errores ---");
+            Usuario usuarioInvalido = new Usuario("Kevin123", "Perez", 25, Genero.MASCULINO, 170, 70, Objetivo.MANTENER, NivelActividad.SEDENTARIO, "Ninguno");
+
 
         } catch (IllegalArgumentException e) {
             // Aquí aterrizan todas las excepciones que lanzamos con "throw new IllegalArgumentException"
