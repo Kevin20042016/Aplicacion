@@ -1,4 +1,5 @@
 import com.fitnessapp.model.*;
+
 import java.time.LocalDate;
 
 public class Main {
