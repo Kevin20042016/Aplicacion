@@ -32,3 +32,12 @@ El núcleo de la aplicación (Domain model) está completamente funcional en Jav
 * **Usuarios:** Implementada la validación estricta de datos (Regex) y el cálculo del Metabolismo Basal mediante la fórmula de Mifflin-St Jeor. Ajuste calórico dinámico usando *Switch Expressions* de Java 14+.
 * **Alimentos (Polimorfismo):** Catálogo de alimentos escalable usando herencia. Los macronutrientes se calculan dinámicamente ya sea por porciones (peso en gramos) o por unidades exactas.
 * **Registro Diario:** Motor de cálculo que utiliza Colecciones (`Map`) y la API de *Java Streams* para sumar y validar el cumplimiento de los objetivos nutricionales diarios con un margen de error realista.
+
+## Intalación/Configuración (Fase 2)
+
+Para poder ejecutar este proyecto localmente, es necesario cumplir con los siguientes requisitos de infraestructura:
+
+* **Docker: ** Es imprescindible tener Docker instalado en el sistema para alojar la base de datos relacional PostgreSQL de forma aislada.
+* **Levantar la Base de Datos:** Sitúate en la raíz del proyecto y ejecuta el siguiente comando para iniciar el servidor en segundo plano:
+`docker compose up -d`
+* **Entorno de Desarrollo:**Este proyecto usa Java 21 y Maven para gestionar las dependencias de Hibernate y PostgreSQL.
