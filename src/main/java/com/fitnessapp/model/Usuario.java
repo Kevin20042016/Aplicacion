@@ -1,16 +1,41 @@
 package com.fitnessapp.model;
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
+
+    //Añadimos la clave primaria y la anotación @Id
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    //Atributos originales
     private String nombre;
     private String apellidos;
     private int edad;
+
+    //Enumerados, guardamos a que guarde el texto del Enum, no su número de posición
+    @Enumerated(EnumType.STRING)
     private Genero genero;
+
     private double alturaCm;
     private double pesoKg;
+
+    @Enumerated(EnumType.STRING)
     private Objetivo objetivo;
+
+    @Enumerated(EnumType.STRING)
     private NivelActividad nivelActividad;
+
     private String problemasSalud;
 
+    //Constructor vacío para Hibernate
+    public Usuario(){
+
+    }
+
+    //Constructor original
     public Usuario(String nombre, String apellidos, int edad, Genero genero, double alturaCm, double pesoKg, Objetivo objetivo, NivelActividad nivelActividad, String problemasSalud) {
         if(!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")){
             throw new IllegalArgumentException("Error: Nombre en formato no válido");
@@ -28,6 +53,10 @@ public class Usuario {
         this.objetivo = objetivo;
         this.nivelActividad = nivelActividad;
         this.problemasSalud = problemasSalud;
+    }
+
+    public Long getId(){
+        return id;
     }
 
     public String getNombre() {
