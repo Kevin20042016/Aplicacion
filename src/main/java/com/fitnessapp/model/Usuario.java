@@ -30,6 +30,8 @@ public class Usuario {
 
     private String problemasSalud;
 
+    private double caloriasRecomendadas;
+
     //Constructor vacío para Hibernate
     public Usuario(){
 
@@ -93,6 +95,14 @@ public class Usuario {
 
     public String getProblemasSalud() {
         return problemasSalud;
+    }
+
+    public double getCaloriasRecomendadas() {
+        return caloriasRecomendadas;
+    }
+
+    public void setCaloriasRecomendadas(double caloriasRecomendadas) {
+        this.caloriasRecomendadas = caloriasRecomendadas;
     }
 
     //Método para calcular las calorías de mantenimiento

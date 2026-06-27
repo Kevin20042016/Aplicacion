@@ -4,6 +4,8 @@ import com.fitnessapp.model.Usuario;
 import com.fitnessapp.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 // 1. Convertimos esta clase en el Recepcionista que devuelve JSON
 @RestController
 // 2. Definimos la ruta de la calle donde trabaja este camarero
@@ -33,5 +35,11 @@ public class UsuarioController {
 
         // El camarero no hace cálculos. Se lo pasa al Chef (Service)
         return usuarioService.registrarUsuario(nuevoUsuario);
+    }
+
+    @GetMapping
+    public List<Usuario> listarUsuarios(){
+        System.out.println("Recibiendo la lista de todos los usuarios");
+        return usuarioService.obtenerTodosLosUsuarios();
     }
 }

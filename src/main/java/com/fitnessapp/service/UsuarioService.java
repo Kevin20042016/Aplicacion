@@ -5,6 +5,8 @@ import com.fitnessapp.model.Usuario;
 import com.fitnessapp.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
 
@@ -24,14 +26,16 @@ public class UsuarioService {
         double caloriasMantenimiento = calcularCalorias(nuevoUsuario);
 
         double caloriasFinales = aplicarObjetivo(nuevoUsuario);
-        nuevoUsuario.calcularCaloriasMantenimiento(caloriasFinales);
+        nuevoUsuario.setCaloriasRecomendadas(caloriasFinales);
 
         System.out.println("Cálculos terminados. Mandando a la base de datos...");
 
         return usuarioRepository.save(nuevoUsuario);
+    }
 
-        // Usamos el superpoder del Repository para guardarlo
-        return usuarioRepository.save(nuevoUsuario);
+    public List<Usuario> obtenerTodosLosUsuarios(){
+        System.out.println("Obteniendo la lista de usuarios...");
+        return usuarioRepository.findAll();
     }
 
     private double calcularCalorias(Usuario u) {
