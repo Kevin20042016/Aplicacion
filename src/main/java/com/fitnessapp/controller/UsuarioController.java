@@ -42,4 +42,17 @@ public class UsuarioController {
         System.out.println("Recibiendo la lista de todos los usuarios");
         return usuarioService.obtenerTodosLosUsuarios();
     }
+
+    @PutMapping("/{id}")
+    public Usuario actualizarUsuario(@PathVariable Long id, @RequestBody Usuario datosNuevos){
+        System.out.println("Petición para actualizar al usuario " + id);
+        return usuarioService.actualizarUsuario(id, datosNuevos);
+    }
+
+    @DeleteMapping("/{id}")
+    public String borrarUsuario(@PathVariable Long id){
+        System.out.println("Petición para borrar al usuario " + id);
+        usuarioService.borrarUsuario(id);
+        return "Usuario con ID " + id + " eliminado correctamente.";
+    }
 }

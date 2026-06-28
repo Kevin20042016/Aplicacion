@@ -86,4 +86,34 @@ public class UsuarioService {
             default -> throw new IllegalArgumentException("Objetivo no válido");
         };
     }
+
+    public Usuario actualizarUsuario(Long id, Usuario datosNuevos){
+        System.out.println("Buscando al usuario con ID: " + id + " para actualizar los datos");
+        Usuario usuarioExistente = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + id));
+
+        usuarioExistente.setNombre(datosNuevos.getNombre());
+        usuarioExistente.setEdad(datosNuevos.getEdad());
+        usuarioExistente.setPesoKg(datosNuevos.getPesoKg());
+        usuarioExistente.setAlturaCm(datosNuevos.getAlturaCm());
+        usuarioExistente.setObjetivo(datosNuevos.getObjetivo());
+        usuarioExistente.setApellidos(datosNuevos.getApellidos());
+        usuarioExistente.setNivelActividad(datosNuevos.getNivelActividad());
+        usuarioExistente.setProblemasSalud(datosNuevos.getProblemasSalud());
+
+        double caloriasFinales = aplicarObjetivo(usuarioExistente);
+        usuarioExistente.setCaloriasRecomendadas(caloriasFinales);
+
+        return usuarioRepository.save(usuarioExistente);
+    }
+
+    public void borrarUsuario(Long id){
+        System.out.println("Eliminar al usuario con ID: " + id);
+
+        if(!usuarioRepository.existsById(id)){
+            throw new RuntimeException("No se puede borrar. Usuario no encontrado con ID: " + id);
+        }
+
+        usuarioRepository.deleteById(id);
+    }
 }

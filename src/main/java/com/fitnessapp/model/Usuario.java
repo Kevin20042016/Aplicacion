@@ -105,6 +105,42 @@ public class Usuario {
         this.caloriasRecomendadas = caloriasRecomendadas;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setGenero(Genero genero) {
+        this.genero = genero;
+    }
+
+    public void setAlturaCm(double alturaCm) {
+        this.alturaCm = alturaCm;
+    }
+
+    public void setPesoKg(double pesoKg) {
+        this.pesoKg = pesoKg;
+    }
+
+    public void setObjetivo(Objetivo objetivo) {
+        this.objetivo = objetivo;
+    }
+
+    public void setNivelActividad(NivelActividad nivelActividad) {
+        this.nivelActividad = nivelActividad;
+    }
+
+    public void setProblemasSalud(String problemasSalud) {
+        this.problemasSalud = problemasSalud;
+    }
+
     //Método para calcular las calorías de mantenimiento
     public double calcularCaloriasMantenimiento(){
         double metabolismoBasal = 0;
