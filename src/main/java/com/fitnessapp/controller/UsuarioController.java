@@ -1,5 +1,7 @@
 package com.fitnessapp.controller;
 
+import com.fitnessapp.dto.UsuarioRequestDTO;
+import com.fitnessapp.dto.UsuarioResponseDTO;
 import com.fitnessapp.model.Usuario;
 import com.fitnessapp.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
@@ -30,15 +32,13 @@ public class UsuarioController {
     // --- ENDPOINT 2: Crear un usuario (Verbo POST) ---
     // @RequestBody agarra el texto de internet y lo convierte mágicamente en un objeto Usuario
     @PostMapping
-    public Usuario crearUsuario(@RequestBody Usuario nuevoUsuario) {
-        System.out.println("Recepcionista: Petición HTTP recibida para registrar a " + nuevoUsuario.getNombre());
-
-        // El camarero no hace cálculos. Se lo pasa al Chef (Service)
+    public UsuarioResponseDTO crearUsuario(@RequestBody UsuarioRequestDTO nuevoUsuario) {
+        System.out.println("Petición HTTP recibida para registrar a " + nuevoUsuario.nombre());
         return usuarioService.registrarUsuario(nuevoUsuario);
     }
 
     @GetMapping
-    public List<Usuario> listarUsuarios(){
+    public List<UsuarioResponseDTO> listarUsuarios(){
         System.out.println("Recibiendo la lista de todos los usuarios");
         return usuarioService.obtenerTodosLosUsuarios();
     }

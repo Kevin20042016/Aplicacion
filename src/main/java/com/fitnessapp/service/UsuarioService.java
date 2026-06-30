@@ -1,5 +1,7 @@
 package com.fitnessapp.service;
 
+import com.fitnessapp.dto.UsuarioRequestDTO;
+import com.fitnessapp.dto.UsuarioResponseDTO;
 import com.fitnessapp.model.Genero;
 import com.fitnessapp.model.Usuario;
 import com.fitnessapp.repository.UsuarioRepository;
@@ -19,23 +21,43 @@ public class UsuarioService {
     }
 
 
-    public Usuario registrarUsuario(Usuario nuevoUsuario) {
+    public UsuarioResponseDTO registrarUsuario(UsuarioRequestDTO dto) {
 
-        System.out.println("El Chef está revisando al usuario: " + nuevoUsuario.getNombre());
+        System.out.println("Revisando al usuario...");
+
+        Usuario nuevoUsuario = new Usuario();
+
+        nuevoUsuario.setNombre(dto.nombre());
+        nuevoUsuario.setApellidos(dto.apellidos());
+        nuevoUsuario.setEdad(dto.edad());
+        nuevoUsuario.setPesoKg(dto.pesoKg());
+        nuevoUsuario.setAlturaCm(dto.alturaCm());
+        nuevoUsuario.setGenero(dto.genero());
+        nuevoUsuario.setNivelActividad(dto.nivelActividad());
+        nuevoUsuario.setObjetivo(dto.objetivo());
+        nuevoUsuario.setProblemasSalud(dto.problemasSalud());
 
         double caloriasMantenimiento = calcularCalorias(nuevoUsuario);
-
         double caloriasFinales = aplicarObjetivo(nuevoUsuario);
         nuevoUsuario.setCaloriasRecomendadas(caloriasFinales);
 
         System.out.println("Cálculos terminados. Mandando a la base de datos...");
 
-        return usuarioRepository.save(nuevoUsuario);
+        //Guardar al usuario en la base de datos
+        Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
+
+        //Metemos al usuario en la caja de salida y devolvemos solo los datos públicos
+        return convertirADtio(usuarioGuardado);
     }
 
-    public List<Usuario> obtenerTodosLosUsuarios(){
+    public List<UsuarioResponseDTO> obtenerTodosLosUsuarios(){
         System.out.println("Obteniendo la lista de usuarios...");
-        return usuarioRepository.findAll();
+
+        List<Usuario> usuariosDeBaseDeDatos = usuarioRepository.findAll();
+
+        return usuariosDeBaseDeDatos.stream()
+                .map(this::convertirADtio)
+                .toList();
     }
 
     private double calcularCalorias(Usuario u) {
@@ -115,5 +137,14 @@ public class UsuarioService {
         }
 
         usuarioRepository.deleteById(id);
+    }
+
+    private UsuarioResponseDTO convertirADtio(Usuario u){
+        return new UsuarioResponseDTO(
+                u.getId(),
+                u.getNombre(),
+                u.getObjetivo().toString(),
+                u.getCaloriasRecomendadas()
+        );
     }
 }
