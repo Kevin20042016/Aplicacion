@@ -3,8 +3,8 @@ Desarrollo de Aplicación Fitness
 Aplicación personal para la gestión de calorías, macronutrientes y monitorización de objetivos físicos.
 
 * [x]**Fase 1 (Completada): ** Java Core (Lógica de negocio, POO avanzado, Poliformismo).
-* [ ]**Fase 2 (Actual):** Persistencia de datos (PostgresSQL, Hibernate/JPA).
-* [ ]**Fase 3:** Backend API REST (Spring Boot, Spring Security).
+* [x]**Fase 2 (Completada):** Persistencia de datos (PostgresSQL, Hibernate/JPA).
+* [x]**Fase 3:(Completada)** Backend API REST (Spring Boot, Spring Security).
 
 ## Producto Mínimo Viable (MVP) - Fase 1 (Java Puro)
 * [x] **Historia 1:** Como usuario, quiero registrar mis datos físicos (peso, altura, edad, género, actividad) para que el sistema calcule mis calorías de mantenimiento.
@@ -41,3 +41,8 @@ Para poder ejecutar este proyecto localmente, es necesario cumplir con los sigui
 * **Levantar la Base de Datos:** Sitúate en la raíz del proyecto y ejecuta el siguiente comando para iniciar el servidor en segundo plano:
 `docker compose up -d`
 * **Entorno de Desarrollo:**Este proyecto usa Java 21 y Maven para gestionar las dependencias de Hibernate y PostgreSQL.
+
+## Producto Mínimo Viable (MVP) - Fase 3 (Backend & API REST)
+* [x] **Historia 1:** Como sistema, expongo endpoints RESTful (GET, POST) mediante Spring Boot para la gestión de usuarios.
+* [x] **Historia 2:** Como arquitecto, implemento el patrón DTO (Data Transfer Object) utilizando `records` de Java para proteger la entrada de datos (evitando Mass Assignment) y minimizar la exposición en la salida.
+* [x] **Historia 3:** Como equipo de QA, desarrollo tests unitarios automatizados utilizando JUnit 5 y Mockito bajo el patrón AAA (Arrange-Act-Assert) para blindar la lógica de negocio.

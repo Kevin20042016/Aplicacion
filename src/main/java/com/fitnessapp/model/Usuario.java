@@ -105,6 +105,10 @@ public class Usuario {
         this.caloriasRecomendadas = caloriasRecomendadas;
     }
 
+    public void setId(Long id){
+        this.id = id;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
