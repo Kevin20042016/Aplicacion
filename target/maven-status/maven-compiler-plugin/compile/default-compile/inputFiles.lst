@@ -1,0 +1,14 @@
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/ApiApplication.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/controller/UsuarioController.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/dto/UsuarioRequestDTO.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/dto/UsuarioResponseDTO.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/model/Alimento.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/model/AlimentoPorPeso.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/model/AlimentoPorUnidad.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/model/Genero.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/model/NivelActividad.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/model/Objetivo.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/model/RegistroDiario.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/model/Usuario.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/repository/UsuarioRepository.java
+/home/kevinsito/Escritorio/Aplicacion/src/main/java/com/fitnessapp/service/UsuarioService.java
