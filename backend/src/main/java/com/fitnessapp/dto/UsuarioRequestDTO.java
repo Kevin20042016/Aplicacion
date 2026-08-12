@@ -5,6 +5,8 @@ import com.fitnessapp.model.NivelActividad;
 import com.fitnessapp.model.Objetivo;
 
 public record UsuarioRequestDTO(
+        String email,
+        String password,
         String nombre,
         String apellidos,
         int edad,

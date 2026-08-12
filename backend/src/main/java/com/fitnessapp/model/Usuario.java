@@ -10,6 +10,15 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    // El interruptor para saber si el usuario ha confirmado su correo
+    private boolean verificado = false;
+
     //Atributos originales
     private String nombre;
     private String apellidos;
@@ -38,7 +47,11 @@ public class Usuario {
     }
 
     //Constructor original
-    public Usuario(String nombre, String apellidos, int edad, Genero genero, double alturaCm, double pesoKg, Objetivo objetivo, NivelActividad nivelActividad, String problemasSalud) {
+    public Usuario(String email, String password, boolean verificado, String nombre, String apellidos, int edad, Genero genero, double alturaCm, double pesoKg, Objetivo objetivo, NivelActividad nivelActividad, String problemasSalud) {
+        this.email = email;
+        this.password = password;
+        this.verificado = verificado;
+
         if(!nombre.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$")){
             throw new IllegalArgumentException("Error: Nombre en formato no válido");
         }
@@ -143,6 +156,30 @@ public class Usuario {
 
     public void setProblemasSalud(String problemasSalud) {
         this.problemasSalud = problemasSalud;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isVerificado() {
+        return verificado;
+    }
+
+    public void setVerificado(boolean verificado) {
+        this.verificado = verificado;
     }
 
     //Método para calcular las calorías de mantenimiento

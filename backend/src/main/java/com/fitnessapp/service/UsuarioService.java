@@ -36,6 +36,9 @@ public class UsuarioService {
         nuevoUsuario.setNivelActividad(dto.nivelActividad());
         nuevoUsuario.setObjetivo(dto.objetivo());
         nuevoUsuario.setProblemasSalud(dto.problemasSalud());
+        nuevoUsuario.setEmail(dto.email());
+        nuevoUsuario.setPassword(dto.password());
+        nuevoUsuario.setVerificado(false);
 
         double caloriasMantenimiento = calcularCalorias(nuevoUsuario);
         double caloriasFinales = aplicarObjetivo(nuevoUsuario);
