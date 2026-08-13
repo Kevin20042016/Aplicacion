@@ -5,6 +5,7 @@ import com.fitnessapp.dto.UsuarioResponseDTO;
 import com.fitnessapp.model.Genero;
 import com.fitnessapp.model.Usuario;
 import com.fitnessapp.repository.UsuarioRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,11 +14,14 @@ import java.util.List;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
-
-    public UsuarioService(UsuarioRepository usuarioRepository) {
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
 
     this.usuarioRepository = usuarioRepository;
+    this.passwordEncoder = passwordEncoder;
+    this.emailService = emailService;
     }
 
 
@@ -37,7 +41,10 @@ public class UsuarioService {
         nuevoUsuario.setObjetivo(dto.objetivo());
         nuevoUsuario.setProblemasSalud(dto.problemasSalud());
         nuevoUsuario.setEmail(dto.email());
-        nuevoUsuario.setPassword(dto.password());
+
+        String passwordCifrada = passwordEncoder.encode(dto.password());
+        nuevoUsuario.setPassword(passwordCifrada);
+
         nuevoUsuario.setVerificado(false);
 
         double caloriasMantenimiento = calcularCalorias(nuevoUsuario);
@@ -48,6 +55,9 @@ public class UsuarioService {
 
         //Guardar al usuario en la base de datos
         Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
+
+        // Damos la orden de enviar el correo electrónico real
+        emailService.enviarCorreoVerificacion(nuevoUsuario.getEmail());
 
         //Metemos al usuario en la caja de salida y devolvemos solo los datos públicos
         return convertirADtio(usuarioGuardado);

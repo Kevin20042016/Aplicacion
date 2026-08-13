@@ -7,9 +7,11 @@ com/fitnessapp/dto/UsuarioResponseDTO.class
 com/fitnessapp/model/Alimento.class
 com/fitnessapp/service/UsuarioService$1.class
 com/fitnessapp/model/NivelActividad.class
+com/fitnessapp/service/EmailService.class
 com/fitnessapp/model/RegistroDiario.class
 com/fitnessapp/model/AlimentoPorPeso.class
 com/fitnessapp/model/Usuario.class
+com/fitnessapp/config/SecurityConfig.class
 com/fitnessapp/service/UsuarioService.class
 com/fitnessapp/dto/UsuarioRequestDTO.class
 com/fitnessapp/model/Objetivo.class

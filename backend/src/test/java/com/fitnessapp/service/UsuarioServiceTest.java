@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -23,6 +24,12 @@ class UsuarioServiceTest {
     @Mock
     private UsuarioRepository usuarioRepository;
 
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private EmailService emailService;
+
     @InjectMocks
     private UsuarioService usuarioService;
 
@@ -31,7 +38,7 @@ class UsuarioServiceTest {
 
         //1. ARRANGE (Preparar el escenario)
         UsuarioRequestDTO peticionFalsa = new UsuarioRequestDTO(
-                "Kevin", "Prueba", 25, 75.0, 175.0, Genero.MASCULINO, NivelActividad.MODERADO, Objetivo.MANTENER, "ninguno"
+                "prueba@gmail.com", "123456", "Kevin", "Fernandez", 21,  175, 81.2, Genero.MASCULINO, NivelActividad.INTENSO, Objetivo.MANTENER, "no"
         );
 
         Usuario usuarioFalsoGuardado = new Usuario();
@@ -41,6 +48,7 @@ class UsuarioServiceTest {
         usuarioFalsoGuardado.setCaloriasRecomendadas(2500.0);
 
         when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioFalsoGuardado);
+        when(passwordEncoder.encode(anyString())).thenReturn("123456");
 
         //2. ACT (Actuar)
 
