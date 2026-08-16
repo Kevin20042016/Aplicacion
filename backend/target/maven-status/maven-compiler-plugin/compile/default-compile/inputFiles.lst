@@ -1,6 +1,8 @@
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/ApiApplication.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/config/SecurityConfig.java
+/home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/controller/AuthController.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/controller/UsuarioController.java
+/home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/dto/LoginRequestDTO.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/dto/UsuarioRequestDTO.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/dto/UsuarioResponseDTO.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/model/Alimento.java

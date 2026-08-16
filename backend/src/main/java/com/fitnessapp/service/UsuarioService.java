@@ -1,5 +1,6 @@
 package com.fitnessapp.service;
 
+import com.fitnessapp.dto.LoginRequestDTO;
 import com.fitnessapp.dto.UsuarioRequestDTO;
 import com.fitnessapp.dto.UsuarioResponseDTO;
 import com.fitnessapp.model.Genero;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -158,6 +160,67 @@ public class UsuarioService {
                 u.getNombre(),
                 u.getObjetivo().toString(),
                 u.getCaloriasRecomendadas()
+        );
+    }
+
+    public String verificarUsuario(String email){
+        //1. Buscamos al usuario en la base de datos
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+
+        //2. Si la caja NO está vacía, el usuario existe
+        if (usuarioOpt.isPresent()){
+            Usuario usuario = usuarioOpt.get(); //Sacamos al usuario de la caja
+
+            //Si ya estaba verificado de antes, avisamos
+            if (usuario.isVerificado()){
+                return "Tu cuenta ya estaba verificada anteriormente";
+            }
+
+            //Si no estaba verificado, le cambiamos el interruptor a true
+            usuario.setVerificado(true);
+            usuarioRepository.save(usuario); //Guardamos los cambios en la base de datos
+
+            return "¡Cuenta verificada con éxito!, puedes cerrar esta ventana e iniciar sesión";
+        }
+        else {
+            //3. Si la caja está vacía
+            return "Error: No hemos encontrado ninguna cuenta asociada a este correo electrónico";
+        }
+    }
+
+    public UsuarioResponseDTO iniciarSesion(LoginRequestDTO loginDTO) {
+
+        // 1. PRIMER FILTRO: ¿Existe el correo en la base de datos?
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(loginDTO.email());
+
+        if (usuarioOpt.isEmpty()) {
+            // Si la caja está vacía, lanzamos un error (que luego React mostrará en rojo)
+            throw new RuntimeException("Error: El correo electrónico o la contraseña son incorrectos.");
+            // Nota de seguridad: Nunca decimos "El correo no existe", para que los hackers no sepan qué correos están registrados.
+        }
+
+        Usuario usuario = usuarioOpt.get(); // Sacamos al usuario de la caja
+
+        // 2. SEGUNDO FILTRO: ¿Ha verificado su cuenta haciendo clic en el correo?
+        if (!usuario.isVerificado()) {
+            throw new RuntimeException("Error: Debes verificar tu correo electrónico antes de iniciar sesión.");
+        }
+
+        // 3. TERCER FILTRO: ¿La contraseña es correcta? (Usamos BCrypt)
+        if (!passwordEncoder.matches(loginDTO.password(), usuario.getPassword())) {
+            throw new RuntimeException("Error: El correo electrónico o la contraseña son incorrectos.");
+        }
+
+        // ¡ÉXITO! Si el código llega hasta aquí, el usuario ha pasado todos los filtros.
+
+        // Convertimos la Entidad Usuario a DTO para devolvérselo a React.
+        // OJO: Aquí debes usar la misma forma en la que conviertes a UsuarioResponseDTO
+        // en tu método de "registrarUsuario" (con tus campos reales).
+        return new UsuarioResponseDTO(
+                usuario.getId(),
+                usuario.getNombre(),
+                usuario.getObjetivo().name(),
+                usuario.getCaloriasRecomendadas()
         );
     }
 }

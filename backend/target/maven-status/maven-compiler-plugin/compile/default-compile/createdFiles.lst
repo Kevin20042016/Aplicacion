@@ -3,6 +3,7 @@ com/fitnessapp/repository/UsuarioRepository.class
 com/fitnessapp/controller/UsuarioController.class
 com/fitnessapp/model/Usuario$1.class
 com/fitnessapp/model/AlimentoPorUnidad.class
+com/fitnessapp/controller/AuthController.class
 com/fitnessapp/dto/UsuarioResponseDTO.class
 com/fitnessapp/model/Alimento.class
 com/fitnessapp/service/UsuarioService$1.class
@@ -15,4 +16,5 @@ com/fitnessapp/config/SecurityConfig.class
 com/fitnessapp/service/UsuarioService.class
 com/fitnessapp/dto/UsuarioRequestDTO.class
 com/fitnessapp/model/Objetivo.class
+com/fitnessapp/dto/LoginRequestDTO.class
 com/fitnessapp/ApiApplication.class
