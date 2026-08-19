@@ -3,6 +3,8 @@ package com.fitnessapp.service;
 import com.fitnessapp.dto.LoginRequestDTO;
 import com.fitnessapp.dto.UsuarioRequestDTO;
 import com.fitnessapp.dto.UsuarioResponseDTO;
+import com.fitnessapp.exception.CredencialesInvalidasException;
+import com.fitnessapp.exception.CuentaNoVerificadaException;
 import com.fitnessapp.model.Genero;
 import com.fitnessapp.model.Usuario;
 import com.fitnessapp.repository.UsuarioRepository;
@@ -194,21 +196,17 @@ public class UsuarioService {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(loginDTO.email());
 
         if (usuarioOpt.isEmpty()) {
-            // Si la caja está vacía, lanzamos un error (que luego React mostrará en rojo)
-            throw new RuntimeException("Error: El correo electrónico o la contraseña son incorrectos.");
-            // Nota de seguridad: Nunca decimos "El correo no existe", para que los hackers no sepan qué correos están registrados.
+            throw new CredencialesInvalidasException();
         }
 
-        Usuario usuario = usuarioOpt.get(); // Sacamos al usuario de la caja
+        Usuario usuario = usuarioOpt.get();
 
-        // 2. SEGUNDO FILTRO: ¿Ha verificado su cuenta haciendo clic en el correo?
         if (!usuario.isVerificado()) {
-            throw new RuntimeException("Error: Debes verificar tu correo electrónico antes de iniciar sesión.");
+            throw new CuentaNoVerificadaException();
         }
 
-        // 3. TERCER FILTRO: ¿La contraseña es correcta? (Usamos BCrypt)
         if (!passwordEncoder.matches(loginDTO.password(), usuario.getPassword())) {
-            throw new RuntimeException("Error: El correo electrónico o la contraseña son incorrectos.");
+            throw new CredencialesInvalidasException();
         }
 
         // ¡ÉXITO! Si el código llega hasta aquí, el usuario ha pasado todos los filtros.

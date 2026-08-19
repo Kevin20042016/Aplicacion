@@ -2,9 +2,13 @@
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/config/SecurityConfig.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/controller/AuthController.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/controller/UsuarioController.java
+/home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/dto/ErrorMensajeDTO.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/dto/LoginRequestDTO.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/dto/UsuarioRequestDTO.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/dto/UsuarioResponseDTO.java
+/home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/exception/ApiExceptionHandler.java
+/home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/exception/CredencialesInvalidasException.java
+/home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/exception/CuentaNoVerificadaException.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/model/Alimento.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/model/AlimentoPorPeso.java
 /home/kevinsito/Escritorio/Aplicacion/backend/src/main/java/com/fitnessapp/model/AlimentoPorUnidad.java

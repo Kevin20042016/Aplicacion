@@ -1,44 +1,67 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+async function leerMensajeError(response) {
+  try {
+    const cuerpo = await response.json();
+    if (cuerpo && typeof cuerpo.mensaje === 'string' && cuerpo.mensaje.trim()) {
+      return cuerpo.mensaje;
+    }
+  } catch {
+    // Si no viene JSON, usamos el texto genérico de abajo
+  }
+
+  if (response.status === 401) {
+    return 'Usuario o contraseña incorrectos';
+  }
+
+  return 'Error al iniciar sesión';
+}
+
 function Login() {
-  // 1. Estados para guardar lo que el usuario escribe y posibles errores
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  
-  // 2. Herramienta para cambiar de página
+  const [enviando, setEnviando] = useState(false);
   const navigate = useNavigate();
 
-  // 3. La función que se ejecuta al pulsar el botón
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Evitamos que la página se recargue
-    setError(''); // Limpiamos errores anteriores
+    e.preventDefault();
+    setError('');
+
+    // FormData lee lo que hay escrito (o autocompletado) en el HTML.
+    // El estado de React a veces se queda vacío al volver de /dashboard
+    // porque el navegador rellena los campos sin avisar a onChange.
+    const formData = new FormData(e.currentTarget);
+    const emailEnviado = String(formData.get('email') || '').trim();
+    const passwordEnviado = String(formData.get('password') || '');
+
+    if (!emailEnviado || !passwordEnviado) {
+      setError('Introduce el correo y la contraseña');
+      return;
+    }
+
+    setEnviando(true);
 
     try {
-      // Llamamos a la puerta del guardia de seguridad en Java
       const response = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, password }) // Metemos los datos en la cesta
+        body: JSON.stringify({ email: emailEnviado, password: passwordEnviado })
       });
 
       if (response.ok) {
-        // ¡ÉXITO! Java nos devuelve los datos del usuario
         const usuarioData = await response.json();
         console.log("¡Sesión iniciada!", usuarioData);
-        
-        // Redirigimos al Dashboard
-        navigate('/dashboard'); 
+        navigate('/dashboard');
       } else {
-        // FALLO: Credenciales incorrectas o usuario no verificado
-        const errorText = await response.text();
-        setError(errorText || 'Error al iniciar sesión');
+        const mensajeError = await leerMensajeError(response);
+        setError(mensajeError);
       }
     } catch (err) {
       setError('Error de conexión con el servidor');
+    } finally {
+      setEnviando(false);
     }
   };
 
@@ -70,10 +93,10 @@ function Login() {
               Correo electrónico
             </label>
             <input 
-              type="email" 
+              type="email"
+              name="email"
+              autoComplete="email"
               placeholder="tu@correo.com"
-              value={email} // Conectado a la memoria de React
-              onChange={(e) => setEmail(e.target.value)} // Actualiza la memoria al escribir
               required
               className="w-full px-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200"
             />
@@ -84,10 +107,10 @@ function Login() {
               Contraseña
             </label>
             <input 
-              type="password" 
+              type="password"
+              name="password"
+              autoComplete="current-password"
               placeholder="••••••••"
-              value={password} // Conectado a la memoria de React
-              onChange={(e) => setPassword(e.target.value)} // Actualiza la memoria al escribir
               required
               className="w-full px-4 py-3 bg-zinc-950 border border-zinc-800 rounded-xl text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors duration-200"
             />
@@ -95,9 +118,10 @@ function Login() {
 
           <button 
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-indigo-600/30"
+            disabled={enviando}
+            className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 shadow-lg shadow-indigo-600/30"
           >
-            Iniciar Sesión
+            {enviando ? 'Entrando...' : 'Iniciar Sesión'}
           </button>
         </form>
 
